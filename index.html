@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>J// — A World of My Own</title>
+
+    <meta name="theme-color" content="#101914">
+    <meta name="description" content="A personal world of memories, stories and collections.">
+
+    <link rel="icon" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR / HEADER -->
+
+    <header class="topbar">
+
+        <div class="brand">
+            <h1>J<span>//</span></h1>
+            <p>Lots of Fun</p>
+        </div>
+
+        <div class="header-actions">
+            <button id="searchBtn">⌕</button>
+            <button id="notificationBtn">♧</button>
+            <button id="profileMenuBtn">⋮</button>
+        </div>
+
+    </header>
+
+
+    <!-- PROFILE -->
+
+    <main>
+
+        <section class="profile-section">
+
+            <div class="profile-cover"></div>
+
+            <div class="profile-information">
+
+                <div class="profile-picture-wrapper">
+                    <img
+                        id="profilePicture"
+                        src="icon-512.png"
+                        alt="Profile picture"
+                    >
+                </div>
+
+                <button id="editProfileBtn">EDIT PROFILE</button>
+
+                <h2 id="profileName">Anji</h2>
+                <p id="profileUsername">@j.world</p>
+
+                <p id="profileBio">
+                    Collecting little pieces of my world. 🌿
+                </p>
+
+                <div class="profile-stats">
+
+                    <div>
+                        <strong id="postCount">0</strong>
+                        <span>Posts</span>
+                    </div>
+
+                    <div>
+                        <strong>12.0M</strong>
+                        <span>Followers</span>
+                    </div>
+
+                    <div>
+                        <strong>9.8M</strong>
+                        <span>Hearts</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STORIES / HIGHLIGHTS -->
+
+        <section class="highlights-section">
+
+            <h3>MY HIGHLIGHTS</h3>
+
+            <div class="highlights-list">
+
+                <button class="highlight" data-section="collection">
+                    <span>✧</span>
+                    Collection
+                </button>
+
+                <button class="highlight" data-section="anime">
+                    <span>◈</span>
+                    Anime
+                </button>
+
+                <button class="highlight" data-section="movies">
+                    <span>▣</span>
+                    Movies
+                </button>
+
+                <button class="highlight" data-section="stories">
+                    <span>✎</span>
+                    Stories
+                </button>
+
+                <button class="highlight" data-section="reflections">
+                    <span>☾</span>
+                    Thoughts
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAIN NAVIGATION -->
+
+        <nav class="main-navigation">
+
+            <button class="nav-btn active" data-section="home">
+                ◇ Home
+            </button>
+
+            <button class="nav-btn" data-section="library">
+                ▤ Library
+            </button>
+
+            <button class="nav-btn" data-section="collection">
+                ✧ Collection
+            </button>
+
+            <button class="nav-btn" data-section="music">
+                ♫ Music
+            </button>
+
+            <button class="nav-btn" data-section="stories">
+                ✎ My Stories
+            </button>
+
+            <button class="nav-btn" data-section="reflections">
+                ☾ Reflections
+            </button>
+
+        </nav>
+
+
+        <!-- CREATE POST -->
+
+        <section class="create-post" id="createPost">
+
+            <div class="create-post-header">
+                <h3>CREATE SOMETHING</h3>
+                <span>✧</span>
+            </div>
+
+            <textarea
+                id="postCaption"
+                placeholder="What's happening in your world?"
+            ></textarea>
+
+            <div id="imagePreview" class="image-preview"></div>
+
+            <div class="post-tools">
+
+                <label for="imageUpload">
+                    ▧ Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="imageUpload"
+                    accept="image/*"
+                    multiple
+                    hidden
+                >
+
+                <button id="saveDraftBtn">Save Draft</button>
+
+                <button id="publishBtn">
+                    Publish ↗
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTENT AREA -->
+
+        <section id="contentArea">
+
+            <div class="feed-heading">
+                <h2>YOUR WORLD</h2>
+                <span>Latest memories</span>
+            </div>
+
+            <div id="postsContainer">
+
+                <div class="empty-state">
+                    <span>✧</span>
+                    <h3>Your world begins here.</h3>
+                    <p>Share your first memory.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COLLECTION / LIBRARY / OTHER SECTIONS -->
+
+        
+
+<section id="specialSection" hidden>
+
+    <div class="special-heading">
+        <h2 id="specialTitle">My Music</h2>
+        <p id="specialDescription">
+            Sounds that belong to my world.
+        </p>
+    </div>
+
+    <div id="specialContent"></div>
+
+</section>
+
+
+<!-- J// MUSIC TEMPLATE -->
+
+
+<template id="musicTemplate">
+
+    <div class="music-dashboard">
+
+        <!-- HEADER -->
+        <div class="music-welcome">
+            <span>J// SOUND LIBRARY</span>
+            <h2>My Music ♫</h2>
+            <p>A soundtrack to my own little world.</p>
+        </div>
+
+        <!-- SEARCH -->
+        <section class="music-search">
+            <h3>DISCOVER</h3>
+
+            <input
+                type="search"
+                id="musicSearch"
+                placeholder="Search songs, artists or playlists..."
+            >
+
+            <button id="musicSearchBtn">Search ↗</button>
+
+            <div class="music-platforms">
+                <a href="https://open.spotify.com/"
+                   target="_blank" rel="noopener">Spotify</a>
+
+                <a href="https://www.youtube.com/"
+                   target="_blank" rel="noopener">YouTube</a>
+
+                <a href="https://soundcloud.com/"
+                   target="_blank" rel="noopener">SoundCloud</a>
+
+                <a href="https://music.apple.com/"
+                   target="_blank" rel="noopener">Apple Music</a>
+            </div>
+        </section>
+
+        <!-- ADD MUSIC -->
+        <section class="music-add">
+            <h3>ADD MUSIC TO J//</h3>
+
+            <label for="audioUpload">♫ Upload audio files</label>
+            <input type="file" id="audioUpload"
+                   accept="audio/*" multiple hidden>
+
+            <input type="text" id="songTitle"
+                   placeholder="Song title">
+
+            <input type="text" id="songArtist"
+                   placeholder="Artist name">
+
+            <button id="saveMusicBtn">Add uploaded music +</button>
+
+            <div class="music-divider">OR ADD AN EXTERNAL LINK</div>
+
+            <input type="url" id="musicLink"
+                   placeholder="Paste Spotify / YouTube / SoundCloud link">
+
+            <input type="text" id="linkSongTitle"
+                   placeholder="Song or playlist name">
+
+            <button id="saveMusicLinkBtn">Save music link +</button>
+        </section>
+
+        <!-- NOW PLAYING -->
+        <section class="music-player">
+            <h3>NOW PLAYING</h3>
+
+            <div class="player-information">
+                <div class="player-art">♫</div>
+
+                <div>
+                    <strong id="nowPlayingTitle">Nothing playing</strong>
+                    <p id="nowPlayingArtist">Choose your soundtrack.</p>
+                </div>
+            </div>
+
+            <audio id="audioPlayer" controls></audio>
+
+            <div id="externalMusicPlayer"></div>
+        </section>
+
+        <!-- PLAYLISTS -->
+        <section class="music-playlists">
+            <div class="music-section-title">
+                <h3>MY PLAYLISTS</h3>
+                <button id="createPlaylistBtn">+ Create</button>
+            </div>
+
+            <div id="playlistContainer">
+                <p class="music-empty">No playlists yet.</p>
+            </div>
+        </section>
+
+        <!-- FAVORITES -->
+        <section class="music-favorites">
+            <h3>FAVORITES ♡</h3>
+
+            <div id="favoriteMusicContainer">
+                <p class="music-empty">Your favorite songs will appear here.</p>
+            </div>
+        </section>
+
+        <!-- RECENTLY ADDED -->
+        <section class="music-recent">
+            <h3>RECENTLY ADDED</h3>
+
+            <div id="recentMusicContainer"></div>
+        </section>
+
+        <!-- FULL LIBRARY -->
+        <section class="music-library">
+            <h3>MY MUSIC LIBRARY</h3>
+
+            <div id="musicLibraryContainer">
+                <p class="music-empty">Your library is waiting for music.</p>
+            </div>
+        </section>
+
+    </div>
+
+</template>
+
+    <div class="music-dashboard">
+
+        <!-- MUSIC SEARCH -->
+
+        <div class="music-search">
+            <h3>DISCOVER MUSIC ♫</h3>
+
+            <input
+                type="search"
+                id="musicSearch"
+                placeholder="Search a song or artist..."
+            >
+
+            <div class="music-platforms">
+
+                <a href="https://open.spotify.com/"
+                   target="_blank" rel="noopener">
+                    Spotify ↗
+                </a>
+
+                <a href="https://www.youtube.com/"
+                   target="_blank" rel="noopener">
+                    YouTube ↗
+                </a>
+
+                <a href="https://soundcloud.com/"
+                   target="_blank" rel="noopener">
+                    SoundCloud ↗
+                </a>
+
+                <a href="https://music.apple.com/"
+                   target="_blank" rel="noopener">
+                    Apple Music ↗
+                </a>
+
+            </div>
+
+            <button id="musicSearchBtn">
+                Search platforms ↗
+            </button>
+        </div>
+
+
+        <!-- ADD MUSIC -->
+
+        <div class="music-add">
+
+            <h3>ADD TO MY WORLD</h3>
+
+            <label for="audioUpload">
+                ♫ Upload audio from device
+            </label>
+
+            <input
+                type="file"
+                id="audioUpload"
+                accept="audio/*"
+                multiple
+                hidden
+            >
+
+            <input
+                type="text"
+                id="songTitle"
+                placeholder="Song title"
+            >
+
+            <input
+                type="text"
+                id="songArtist"
+                placeholder="Artist name"
+            >
+
+            <button id="saveMusicBtn">
+                Add to library +
+            </button>
+
+            <p class="music-note">
+                You can also save a supported music link below.
+            </p>
+
+            <input
+                type="url"
+                id="musicLink"
+                placeholder="Paste Spotify, YouTube or SoundCloud link"
+            >
+
+            <input
+                type="text"
+                id="linkSongTitle"
+                placeholder="Song or playlist name"
+            >
+
+            <button id="saveMusicLinkBtn">
+                Save music link +
+            </button>
+
+        </div>
+
+
+        <!-- PLAYLISTS -->
+
+        <div class="music-playlists">
+
+            <div class="music-section-title">
+                <h3>MY PLAYLISTS</h3>
+                <button id="createPlaylistBtn">+ New</button>
+            </div>
+
+            <div id="playlistContainer">
+                <p class="music-empty">
+                    Your playlists will appear here.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITES -->
+
+        <div class="music-favorites">
+
+            <h3>FAVORITES ♡</h3>
+
+            <div id="favoriteMusicContainer">
+                <p class="music-empty">
+                    Your favorite songs will appear here.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- MUSIC LIBRARY -->
+
+        <div class="music-library">
+
+            <h3>MY MUSIC LIBRARY</h3>
+
+            <div id="musicLibraryContainer">
+                <p class="music-empty">
+                    Your music collection starts here.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div class="music-player" id="musicPlayer">
+
+            <div class="player-information">
+                <div class="player-art">♫</div>
+
+                <div>
+                    <strong id="nowPlayingTitle">
+                        Nothing playing
+                    </strong>
+
+                    <p id="nowPlayingArtist">
+                        Choose something from your library.
+                    </p>
+                </div>
+            </div>
+
+            <audio id="audioPlayer" controls></audio>
+
+            <div id="externalMusicPlayer"></div>
+
+        </div>
+
+    </div>
+
+</template>
+
+
+    <div class="special-heading">
+        <h2 id="specialTitle">My Music</h2>
+        <p id="specialDescription">
+            Sounds that belong to my world.
+        </p>
+    </div>
+
+    <div id="specialContent"></div>
+
+</section>
+
+
+<!-- J// MUSIC TEMPLATE -->
+
+<template id="musicTemplate">
+
+    <div class="music-dashboard">
+
+        <!-- MUSIC SEARCH -->
+
+        <div class="music-search">
+            <h3>DISCOVER MUSIC ♫</h3>
+
+            <input
+                type="search"
+                id="musicSearch"
+                placeholder="Search a song or artist..."
+            >
+
+            <div class="music-platforms">
+
+                <a href="https://open.spotify.com/"
+                   target="_blank" rel="noopener">
+                    Spotify ↗
+                </a>
+
+                <a href="https://www.youtube.com/"
+                   target="_blank" rel="noopener">
+                    YouTube ↗
+                </a>
+
+                <a href="https://soundcloud.com/"
+                   target="_blank" rel="noopener">
+                    SoundCloud ↗
+                </a>
+
+                <a href="https://music.apple.com/"
+                   target="_blank" rel="noopener">
+                    Apple Music ↗
+                </a>
+
+            </div>
+
+            <button id="musicSearchBtn">
+                Search platforms ↗
+            </button>
+        </div>
+
+
+        <!-- ADD MUSIC -->
+
+        <div class="music-add">
+
+            <h3>ADD TO MY WORLD</h3>
+
+            <label for="audioUpload">
+                ♫ Upload audio from device
+            </label>
+
+            <input
+                type="file"
+                id="audioUpload"
+                accept="audio/*"
+                multiple
+                hidden
+            >
+
+            <input
+                type="text"
+                id="songTitle"
+                placeholder="Song title"
+            >
+
+            <input
+                type="text"
+                id="songArtist"
+                placeholder="Artist name"
+            >
+
+            <button id="saveMusicBtn">
+                Add to library +
+            </button>
+
+            <p class="music-note">
+                You can also save a supported music link below.
+            </p>
+
+            <input
+                type="url"
+                id="musicLink"
+                placeholder="Paste Spotify, YouTube or SoundCloud link"
+            >
+
+            <input
+                type="text"
+                id="linkSongTitle"
+                placeholder="Song or playlist name"
+            >
+
+            <button id="saveMusicLinkBtn">
+                Save music link +
+            </button>
+
+        </div>
+
+
+        <!-- PLAYLISTS -->
+
+        <div class="music-playlists">
+
+            <div class="music-section-title">
+                <h3>MY PLAYLISTS</h3>
+                <button id="createPlaylistBtn">+ New</button>
+            </div>
+
+            <div id="playlistContainer">
+                <p class="music-empty">
+                    Your playlists will appear here.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITES -->
+
+        <div class="music-favorites">
+
+            <h3>FAVORITES ♡</h3>
+
+            <div id="favoriteMusicContainer">
+                <p class="music-empty">
+                    Your favorite songs will appear here.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- MUSIC LIBRARY -->
+
+        <div class="music-library">
+
+            <h3>MY MUSIC LIBRARY</h3>
+
+            <div id="musicLibraryContainer">
+                <p class="music-empty">
+                    Your music collection starts here.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div class="music-player" id="musicPlayer">
+
+            <div class="player-information">
+                <div class="player-art">♫</div>
+
+                <div>
+                    <strong id="nowPlayingTitle">
+                        Nothing playing
+                    </strong>
+
+                    <p id="nowPlayingArtist">
+                        Choose something from your library.
+                    </p>
+                </div>
+            </div>
+
+            <audio id="audioPlayer" controls></audio>
+
+            <div id="externalMusicPlayer"></div>
+
+        </div>
+
+    </div>
+
+</template>
+
+            <div class="special-heading">
+                <h2 id="specialTitle">Collection</h2>
+                <p id="specialDescription">
+                    Everything worth keeping.
+                </p>
+            </div>
+
+            <div id="specialContent"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <footer class="bottom-navigation">
+
+        <button data-section="home">
+            ◇
+            <span>Home</span>
+        </button>
+
+        <button data-section="library">
+            ▤
+            <span>Library</span>
+        </button>
+
+        <button id="bottomCreateBtn">
+            ＋
+            <span>Create</span>
+        </button>
+
+        <button data-section="music">
+            ♫
+            <span>Music</span>
+        </button>
+
+        <button data-section="reflections">
+            ☾
+            <span>Me</span>
+        </button>
+
+    </footer>
+
+</div>
+
+<script src="j.js"></script>
+
+</body>
+</html>
